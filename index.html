@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abrir en Navegador Predeterminado</title>
+</head>
+<body>
+    <button id="open-link-button">Abrir Google</button>
+
+    <script>
+        document.getElementById('open-link-button').addEventListener('click', function () {
+            var link = 'https://www.google.com';
+            var a = document.createElement('a');
+            a.href = link;
+            a.target = '_blank';
+            a.rel = 'noopener noreferrer';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        });
+    </script>
+</body>
+</html>
