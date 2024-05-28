@@ -52,6 +52,9 @@
             if (/android/i.test(userAgent)) {
                 // Usar el esquema intent:// para Android
                 window.location = `intent://www.google.com#Intent;scheme=https;package=com.android.chrome;end;`;
+            } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
+                // Usar el esquema URL para forzar la apertura en Safari
+                window.location = `https://www.google.com`;
             } else if (/FBAN|FBAV|Instagram/.test(userAgent)) {
                 // Mostrar mensaje y opción de copiar enlace si estamos en un navegador in-app
                 document.getElementById('message').style.display = 'block';
