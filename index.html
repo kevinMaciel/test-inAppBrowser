@@ -6,18 +6,26 @@
     <title>Abrir en Navegador Predeterminado</title>
 </head>
 <body>
-    <button id="open-link-button">Abrir Google</button>
+    <button id="open-link-button">Abrir Google intent</button>
 
     <script>
         document.getElementById('open-link-button').addEventListener('click', function () {
-            var link = 'https://www.google.com';
-            var a = document.createElement('a');
-            a.href = link;
-            a.target = '_blank';
-            a.rel = 'noopener noreferrer';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
+            var url = 'https://www.google.com';
+            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            
+            if (/android/i.test(userAgent)) {
+                // Usar el esquema intent:// para Android
+                window.location = `intent://www.google.com#Intent;scheme=https;package=com.android.chrome;end;`;
+            } else {
+                // Para otros navegadores, intentar abrir en una nueva ventana
+                var a = document.createElement('a');
+                a.href = url;
+                a.target = '_blank';
+                a.rel = 'noopener noreferrer';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            }
         });
     </script>
 </body>
