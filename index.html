@@ -4,20 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Abrir en Navegador Predeterminado</title>
+    <style>
+        #message {
+            display: none;
+            padding: 10px;
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            margin: 20px;
+        }
+        #copy-link {
+            margin: 20px;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <button id="open-link-button">Abrir Google intent</button>
+    <button id="open-link-button">Abrir Google</button>
+    <div id="message">
+        Parece que estás utilizando el navegador in-app de Facebook. Por favor, abre este enlace en tu navegador predeterminado.
+        <br>
+        <button id="copy-link">Copiar enlace</button>
+    </div>
 
     <script>
         document.getElementById('open-link-button').addEventListener('click', function () {
             var url = 'https://www.google.com';
             var userAgent = navigator.userAgent || navigator.vendor || window.opera;
             
-            if (/android/i.test(userAgent)) {
-                // Usar el esquema intent:// para Android
-                window.location = `intent://www.google.com#Intent;scheme=https;package=com.android.chrome;end;`;
-            } else {
-                // Para otros navegadores, intentar abrir en una nueva ventana
+            function openInBrowser() {
+                // Intentar abrir en una nueva ventana/tab
                 var a = document.createElement('a');
                 a.href = url;
                 a.target = '_blank';
@@ -26,6 +48,26 @@
                 a.click();
                 document.body.removeChild(a);
             }
+
+            if (/android/i.test(userAgent)) {
+                // Usar el esquema intent:// para Android
+                window.location = `intent://www.google.com#Intent;scheme=https;package=com.android.chrome;end;`;
+            } else if (/FBAN|FBAV|Instagram/.test(userAgent)) {
+                // Mostrar mensaje y opción de copiar enlace si estamos en un navegador in-app
+                document.getElementById('message').style.display = 'block';
+            } else {
+                // Para otros navegadores, intentar abrir en una nueva ventana
+                openInBrowser();
+            }
+        });
+
+        document.getElementById('copy-link').addEventListener('click', function () {
+            var url = 'https://www.google.com';
+            navigator.clipboard.writeText(url).then(function() {
+                alert('Enlace copiado. Pégalo en tu navegador predeterminado.');
+            }, function(err) {
+                alert('Error al copiar el enlace: ', err);
+            });
         });
     </script>
 </body>
