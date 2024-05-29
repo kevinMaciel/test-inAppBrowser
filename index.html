@@ -17,8 +17,14 @@
                 return /FBAN|FBAV|Instagram/.test(userAgent);
             }
 
+            // Función para verificar si estamos en Chrome
+            function isChrome() {
+                return /Chrome/.test(userAgent) && !/Edge|OPR|SamsungBrowser/.test(userAgent);
+            }
+
             // Redirigir solo si estamos en el navegador in-app de Facebook o Instagram en Android
-            if (isInAppBrowser() && /android/i.test(userAgent)) {
+            // y no estamos ya en Chrome
+            if (isInAppBrowser() && /android/i.test(userAgent) && !isChrome()) {
                 // Usar el esquema intent:// para Android con la URL actual
                 window.location = `intent://${currentUrl.replace(/^https?:\/\//, '')}#Intent;scheme=https;package=com.android.chrome;end;`;
             }
