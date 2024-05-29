@@ -6,23 +6,21 @@
     <title>Abrir en Navegador Predeterminado</title>
 </head>
 <body>
+    <h1>Test in app browser</h1>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var currentUrl = window.location.href;
             var userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
-            if (/android/i.test(userAgent)) {
+            // Función para verificar si estamos en el navegador in-app de Facebook o Instagram
+            function isInAppBrowser() {
+                return /FBAN|FBAV|Instagram/.test(userAgent);
+            }
+
+            // Redirigir solo si estamos en el navegador in-app de Facebook o Instagram en Android
+            if (isInAppBrowser() && /android/i.test(userAgent)) {
                 // Usar el esquema intent:// para Android con la URL actual
                 window.location = `intent://${currentUrl.replace(/^https?:\/\//, '')}#Intent;scheme=https;package=com.android.chrome;end;`;
-            } else {
-                // Para otros navegadores, intentar abrir en una nueva ventana
-                var a = document.createElement('a');
-                a.href = currentUrl;
-                a.target = '_blank';
-                a.rel = 'noopener noreferrer';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
             }
         });
     </script>
