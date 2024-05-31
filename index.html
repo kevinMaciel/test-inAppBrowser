@@ -35,7 +35,10 @@
              // window.open(url, '_system');
                // window.open(url, '_system', 'location=yes');
                 //window.location = url
-                window.location.href = "x-web-search://?" + url;
+                //window.location.href = "x-web-search://?" + url;
+
+                var newWindow = window.open();
+                newWindow.location = url;
 
             }
 
