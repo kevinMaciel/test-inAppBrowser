@@ -33,11 +33,12 @@
               console.log("Ejecuto openLinkInSafari");
               console.log("url", url)
              // window.open(url, '_system');
-                window.open(url, '_system', 'location=yes');
+               // window.open(url, '_system', 'location=yes');
+                window.location = url
             }
 
 
-        openLinkInSafari('https://www.google.com');
+        openLinkInSafari('external:https://www.google.com');
 
         });
     </script>
