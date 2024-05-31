@@ -33,17 +33,17 @@
               console.log("Ejecuto openLinkInSafari");
               console.log("url", url)
              // window.open(url, '_system');
-               // window.open(url, '_system', 'location=yes');
+                window.open(url, '_system', 'location=yes');
                 //window.location = url
                 //window.location.href = "x-web-search://?" + url;
 
-                var newWindow = window.open();
-                newWindow.location = url;
+                //var newWindow = window.open();
+               // newWindow.location = url;
 
             }
 
 
-        openLinkInSafari('safari:https://www.google.com');
+        openLinkInSafari('https://www.google.com');
 
         });
     </script>
