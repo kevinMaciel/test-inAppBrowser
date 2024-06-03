@@ -7,45 +7,18 @@
 </head>
 <body>
     <h1>Test in app browser</h1>
-    <a href="#" onclick="window.open('http://www.google.com', '_system');">Google</a>
-    <script>
+<script>
         document.addEventListener('DOMContentLoaded', function () {
             var currentUrl = window.location.href;
             var userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
-            // Función para verificar si estamos en el navegador in-app de Facebook o Instagram
             function isInAppBrowser() {
                 return /FBAN|FBAV|Instagram/.test(userAgent);
             }
 
-            // Función para verificar si estamos en Chrome
-            function isChrome() {
-                return /Chrome/.test(userAgent);
+            if (isInAppBrowser() && /android/i.test(userAgent)) {
+                window.location = `intent://${currentUrl.replace(/^https?:\/\//, '')}#Intent;scheme=https;package=com.android.chrome;end;`;
             }
-
-            // Redirigir solo si estamos en el navegador in-app de Facebook o Instagram en Android
-            // y no estamos ya en Chrome
-            //if (isInAppBrowser() && /android/i.test(userAgent)) {
-                // Usar el esquema intent:// para Android con la URL actual
-           //     window.location = `intent://${currentUrl.replace(/^https?:\/\//, '')}#Intent;scheme=https;package=com.android.chrome;end;`;
-           // }
-
-            function openLinkInSafari(url) {
-              console.log("Ejecuto openLinkInSafari");
-              console.log("url", url)
-             // window.open(url, '_system');
-               // window.open(url, '_system', 'location=yes');
-                //window.location = url
-                //window.location.href = "x-web-search://?" + url;
-window.parent.location.assign(url);
-                //var newWindow = window.open();
-               // newWindow.location = url;
-
-            }
-
-
-        openLinkInSafari('https://www.google.com');
-
         });
     </script>
 </body>
