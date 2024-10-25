@@ -18,7 +18,7 @@
 
             if (isInAppBrowser() && /android/i.test(userAgent)) {
                //window.location = `intent://${currentUrl.replace(/^https?:\/\//, '')}#Intent;scheme=https;package=com.android.chrome;end;`;
-                window.location = `googlechrome://navigate?url=currentUrl${currentUrl}`;
+                window.location = `intent:https://example.com#Intent;end';`;
             }
         });
     </script>
