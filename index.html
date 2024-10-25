@@ -12,14 +12,14 @@
             var currentUrl = window.location.href;
             var userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
-            function isInAppBrowser() {
-                return /FBAN|FBAV|Instagram/.test(userAgent);
-            }
+          //  function isInAppBrowser() {
+           //     return /FBAN|FBAV|Instagram/.test(userAgent);
+           // }
 
-            if (isInAppBrowser() && /android/i.test(userAgent)) {
+            //if (isInAppBrowser() && /android/i.test(userAgent)) {
                //window.location = `intent://${currentUrl.replace(/^https?:\/\//, '')}#Intent;scheme=https;package=com.android.chrome;end;`;
                 window.location = `intent:https://example.com#Intent;end';`;
-            }
+           // }
         });
     </script>
 </body>
